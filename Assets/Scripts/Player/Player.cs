@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] GameObject playerBulletAPrefab;
+    [SerializeField] GameObject playerBulletAPrefab;//[SerializeField] = public 선언 한 것처럼 인스펙터창에 보이게 하되 private 처럼 캡슐화
     [SerializeField] GameObject playerBulletBPrefab;
     [SerializeField] GameObject guideBulletPrefab;
     private Animator animator;
     public float speed;
-    bool canSoot = true;
+    bool canShoot = true;
     public float shootDelay;
     public int power = 1;
     void Start()
@@ -46,20 +46,20 @@ public class Player : MonoBehaviour
     void Shoot()
     {
         if(!Input.GetKey(KeyCode.Z)) { return; }
-        if(!canSoot) { return; }
+        if(!canShoot) { return; }
 
-        canSoot = false;
+        canShoot = false;
         StartCoroutine(ShootDelay());
 
-        switch (power)
+        switch (power) //파워 값에 따른 총알 발사 값
         {
             case 1:
                 {
-                    GameObject bulletA = Instantiate(playerBulletAPrefab);
+                    GameObject bulletA = Instantiate(playerBulletAPrefab);//프리펩 복사
                     GameObject bulletB = Instantiate(playerBulletAPrefab);
-                    bulletA.transform.position = transform.position + Vector3.right * 0.1f;
+                    bulletA.transform.position = transform.position + Vector3.right * 0.1f;//총알 발사 위치 조정
                     bulletB.transform.position = transform.position + Vector3.left * 0.1f;
-                    bulletA.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 7, ForceMode2D.Impulse);
+                    bulletA.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 7, ForceMode2D.Impulse);//총알 오브젝트에 rigidbody2D 컴포넌트 불러온 후 AddForce로 총알 움직이기
                     bulletB.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 7, ForceMode2D.Impulse);
                     break;
                 }
@@ -88,6 +88,6 @@ public class Player : MonoBehaviour
     IEnumerator ShootDelay()//코루틴
     {
         yield return new WaitForSeconds(shootDelay);//yield return에 옵션 추가(shootDelay만큼 기다렸다 실행)
-        canSoot = true;
+        canShoot = true;
     }
 }
