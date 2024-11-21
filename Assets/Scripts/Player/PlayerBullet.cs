@@ -5,10 +5,8 @@ using UnityEngine;
 public class PlayerBullet : MonoBehaviour
 {
     public int atk;
-    Rigidbody2D rigid;
     private void Awake()
     {
-        rigid = GetComponent<Rigidbody2D>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
