@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject guideBulletPrefab;
     private Animator animator;
     public float speed;
+    public float angle;
     bool canShoot = true;
     public float shootDelay;
     public int power = 1;
@@ -81,9 +82,13 @@ public class Player : MonoBehaviour
                     GameObject bulletA = Instantiate(playerBulletAPrefab);
                     GameObject bulletB = Instantiate(playerBulletAPrefab);
                     GameObject bulletC = Instantiate(playerBulletBPrefab);
+                    GameObject guidedBulletA = Instantiate(guideBulletPrefab,transform.position, Quaternion.Euler(0,0,angle));
+                    GameObject guidedBulletB = Instantiate(guideBulletPrefab, transform.position, Quaternion.Euler(0, 0, angle - 90));
                     bulletA.transform.position = transform.position + Vector3.right * 0.25f;
                     bulletB.transform.position = transform.position + Vector3.left * 0.25f;
                     bulletC.transform.position = transform.position;
+                    guidedBulletA.transform.position = transform.position + Vector3.left * 0.5f;
+                    guidedBulletB.transform.position = transform.position + Vector3.right * 0.5f ;
                     bulletA.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 7, ForceMode2D.Impulse);
                     bulletB.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 7, ForceMode2D.Impulse);
                     bulletC.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 7, ForceMode2D.Impulse);
