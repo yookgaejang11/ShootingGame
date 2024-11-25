@@ -82,8 +82,8 @@ public class Player : MonoBehaviour
                     GameObject bulletA = Instantiate(playerBulletAPrefab);
                     GameObject bulletB = Instantiate(playerBulletAPrefab);
                     GameObject bulletC = Instantiate(playerBulletBPrefab);
-                    GameObject guidedBulletA = Instantiate(guideBulletPrefab,transform.position, Quaternion.Euler(0,0,angle));
-                    GameObject guidedBulletB = Instantiate(guideBulletPrefab, transform.position, Quaternion.Euler(0, 0, angle - 90));
+                    GameObject guidedBulletA = Instantiate(guideBulletPrefab);
+                    GameObject guidedBulletB = Instantiate(guideBulletPrefab);
                     bulletA.transform.position = transform.position + Vector3.right * 0.25f;
                     bulletB.transform.position = transform.position + Vector3.left * 0.25f;
                     bulletC.transform.position = transform.position;
@@ -92,7 +92,9 @@ public class Player : MonoBehaviour
                     bulletA.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 7, ForceMode2D.Impulse);
                     bulletB.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 7, ForceMode2D.Impulse);
                     bulletC.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 7, ForceMode2D.Impulse);
-                    
+                    guidedBulletA.transform.Rotate(Vector3.forward * -70);
+                    guidedBulletB.transform.Rotate(Vector3.forward * 70);
+
                     break;
                 }
          

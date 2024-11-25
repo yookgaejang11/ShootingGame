@@ -12,7 +12,7 @@ public class GuidedBullet : PlayerBullet//PlayerBullet의 내용을 상속받음
     private void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
-        if(EnemyManager.Instance.enemys.Count >= 0)
+        if(EnemyManager.Instance.enemys.Count > 0)
         {
             List<Enemy> targets = EnemyManager.Instance.enemys.//enemys 리스트에 접근
             OrderByDescending(_ => Vector3.Distance(_.transform.position, transform.position)).ToList();
