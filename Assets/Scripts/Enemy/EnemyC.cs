@@ -29,7 +29,7 @@ public class EnemyC : Enemy
         int bulletNum = 20;
         for (int i = 0; i < bulletNum; i++)
         {
-            GameObject bullet = Instantiate(enemyBulletPrefab);
+            GameObject bullet = ObjectPool.Instance.GetObject(ObjectType.EnemyBullet);
             bullet.transform.position = bulletPosition.transform.position;
             bullet.transform.rotation = bulletPosition.transform.rotation;
             bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.up * 7,ForceMode2D.Impulse);

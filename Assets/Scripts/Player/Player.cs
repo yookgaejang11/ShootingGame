@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] GameObject playerBulletAPrefab;//[SerializeField] = public 선언 한 것처럼 인스펙터창에 보이게 하되 private 처럼 캡슐화
-    [SerializeField] GameObject playerBulletBPrefab;
-    [SerializeField] GameObject guideBulletPrefab;
     private Animator animator;
     public float speed;
     public float angle;
@@ -56,8 +54,8 @@ public class Player : MonoBehaviour
         {
             case 1:
                 {
-                    GameObject bulletA = Instantiate(playerBulletAPrefab);//프리펩 복사
-                    GameObject bulletB = Instantiate(playerBulletAPrefab);
+                    GameObject bulletA = ObjectPool.Instance.GetObject(ObjectType.PlayerBulletA);//프리펩 복사
+                    GameObject bulletB = ObjectPool.Instance.GetObject(ObjectType.PlayerBulletA);
                     bulletA.transform.position = transform.position + Vector3.right * 0.1f;//총알 발사 위치 조정
                     bulletB.transform.position = transform.position + Vector3.left * 0.1f;
                     bulletA.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 7, ForceMode2D.Impulse);//총알 오브젝트에 rigidbody2D 컴포넌트 불러온 후 AddForce로 총알 움직이기
@@ -66,9 +64,9 @@ public class Player : MonoBehaviour
                 }
             case 2:
                 {
-                    GameObject bulletA = Instantiate(playerBulletAPrefab);
-                    GameObject bulletB = Instantiate(playerBulletAPrefab);
-                    GameObject bulletC = Instantiate(playerBulletBPrefab);
+                    GameObject bulletA = ObjectPool.Instance.GetObject(ObjectType.PlayerBulletA);
+                    GameObject bulletB = ObjectPool.Instance.GetObject(ObjectType.PlayerBulletA);
+                    GameObject bulletC = ObjectPool.Instance.GetObject(ObjectType.PlayerBulletB);
                     bulletA.transform.position = transform.position + Vector3.right * 0.25f;
                     bulletB.transform.position = transform.position + Vector3.left * 0.25f;
                     bulletC.transform.position = transform.position;
@@ -79,11 +77,11 @@ public class Player : MonoBehaviour
                 }
             case 3:
                 {
-                    GameObject bulletA = Instantiate(playerBulletAPrefab);
-                    GameObject bulletB = Instantiate(playerBulletAPrefab);
-                    GameObject bulletC = Instantiate(playerBulletBPrefab);
-                    GameObject guidedBulletA = Instantiate(guideBulletPrefab);
-                    GameObject guidedBulletB = Instantiate(guideBulletPrefab);
+                    GameObject bulletA = ObjectPool.Instance.GetObject(ObjectType.PlayerBulletA);
+                    GameObject bulletB = ObjectPool.Instance.GetObject(ObjectType.PlayerBulletA);
+                    GameObject bulletC = ObjectPool.Instance.GetObject(ObjectType.PlayerBulletB);
+                    GameObject guidedBulletA = ObjectPool.Instance.GetObject(ObjectType.GuidedBullet);
+                    GameObject guidedBulletB = ObjectPool.Instance.GetObject(ObjectType.GuidedBullet);
                     bulletA.transform.position = transform.position + Vector3.right * 0.25f;
                     bulletB.transform.position = transform.position + Vector3.left * 0.25f;
                     bulletC.transform.position = transform.position;
