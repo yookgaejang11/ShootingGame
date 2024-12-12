@@ -13,6 +13,12 @@ public class EnemyB : Enemy
     }
     private void Update()
     {
+        if (Hp <= 0)
+        {
+            ItemDrop();
+            EnemyManager.Instance.enemys.Remove(this);
+            ObjectPool.Instance.DestroyObject(this.gameObject, enemyType);
+        }
         Move();
     }
     void Move()
@@ -26,14 +32,13 @@ public class EnemyB : Enemy
         canMove = false;
         //타겟 잡고
         Vector3 target = GameManager.Instance.player.transform.position;
-        Debug.Log(transform.up.z + " " + (transform.position - target).normalized.z);
         //회전하고
         while(!((transform.up.x >= (transform.position - target).normalized.x - 0.1f
             && transform.up.x <= (transform.position - target).normalized.x + 0.1f) &&
             (transform.up.y >= (transform.position - target).normalized.y - 0.1f
             && transform.up.y <= (transform.position - target).normalized.y + 0.1f)))
         {
-            Debug.Log(1);
+            
             transform.up =
 Vector3.MoveTowards(transform.up, (transform.position - target).normalized,
 rotateSpeed);

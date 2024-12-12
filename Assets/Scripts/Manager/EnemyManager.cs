@@ -10,6 +10,7 @@ public class EnemyManager : MonoBehaviour
     public List<Enemy> enemys = new List<Enemy>();
     private static EnemyManager instance = null;
 
+    public Boss boss;
     public bool canSpawn = true;
     public float minSpawnTime;
     public float maxSpawnTime;
@@ -28,7 +29,16 @@ public class EnemyManager : MonoBehaviour
     {
         StartCoroutine(SpawnEnemy());
         StartCoroutine(SpawnEnemyC());
-        
+        StartCoroutine(SpawnBoss());
+    }
+
+    IEnumerator SpawnBoss()
+    {
+        yield return new WaitForSeconds(10);
+        canSpawn = false;
+        yield return new WaitForSeconds(15);
+        boss.gameObject.SetActive(true);
+        enemys.Add(boss);
     }
     IEnumerator SpawnEnemyC()
     {

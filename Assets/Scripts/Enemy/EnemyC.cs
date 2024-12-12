@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
 
 public class EnemyC : Enemy
@@ -13,6 +14,12 @@ public class EnemyC : Enemy
     }
     private void Update()
     {
+        if (Hp <= 0)
+        {
+            ItemDrop();
+            EnemyManager.Instance.enemys.Remove(this);
+            ObjectPool.Instance.DestroyObject(this.gameObject, enemyType);
+        }
         Move();
     }
     void Move()
@@ -35,7 +42,7 @@ public class EnemyC : Enemy
     }
     IEnumerator Shoot()
     {
-        Debug.Log(1);
+
         yield return new WaitUntil(() => (transform.position.y <= 2.1f && transform.position.y >= 1.9f));
         canMove = false;
         for(int i = 0; i < 5; i++)

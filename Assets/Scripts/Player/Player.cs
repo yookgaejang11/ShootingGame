@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private SpriteRenderer spriteRenender;
     private Animator animator;
     public float speed;
 
@@ -12,17 +13,24 @@ public class Player : MonoBehaviour
     bool canShoot = true;
     public int power = 1;
     public float shootDelay;
+
+    public bool canHit = true;
     // Start is called before the first frame update
     void Start()
     {
+        spriteRenender = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Shoot();
-        Move();
+        if (!GameManager.Instance.isEndGame)
+        {
+            Shoot();
+            Move();
+        }
+       
     }
     void Move()
     {
@@ -103,8 +111,36 @@ public class Player : MonoBehaviour
                 }
         }
     }
+    public void  OnDamange()
+    {
+        if(!canHit) { return; }
+        hp--;
+        if(hp > 0)
+        {
+            StartCoroutine(hitEffect());
+            if(power > 1)
+            {
+                power--;
+            }
 
-    
+        }
+        else
+        {
+            animator.SetTrigger("Explosion");
+        }
+    }
+    IEnumerator hitEffect()
+    {
+        canHit = false;
+        spriteRenender.color = new Color(1, 1, 1, 0.5f);
+        yield return new WaitForSeconds(1f);
+        spriteRenender.color = new Color(1, 1, 1, 1f);
+        canHit = true;
+    }
+    public void EndGame()
+    {
+        GameManager.Instance.EndGame();
+    }
     IEnumerator ShootDelay()
     {
         yield return new WaitForSeconds(shootDelay);

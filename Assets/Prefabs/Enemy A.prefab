@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 4
-  Hp: 0
+  Hp: 1
   speed: 3
   dropItems:
   - itemType: 7

@@ -13,6 +13,12 @@ public class EnemyA : Enemy
     }
     private void Update()
     {
+        if (Hp <= 0)
+        {
+            ItemDrop();
+            EnemyManager.Instance.enemys.Remove(this);
+            ObjectPool.Instance.DestroyObject(this.gameObject, enemyType);
+        }
         Move();
     }
     void Move()

@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
     public Player player;
-
+    public bool isEndGame = false;
     public int score;
     private void Awake()
     {
@@ -29,5 +29,11 @@ public class GameManager : MonoBehaviour
             }
             return instance;
         }
+    }
+
+    public void EndGame()
+    {
+        player.GetComponent<SpriteRenderer>().enabled = false;
+        isEndGame = true;
     }
 }
